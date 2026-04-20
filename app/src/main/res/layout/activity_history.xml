@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <LinearLayout android:id="@+id/historyTopBar"
+        android:layout_width="0dp" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:paddingHorizontal="16dp" android:paddingTop="48dp" android:paddingBottom="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton android:id="@+id/btnHistoryBack"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:src="@drawable/ic_close" android:tint="@color/accent_cyan"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back" android:layout_marginEnd="12dp"/>
+
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:text="Recently Played"
+            android:textSize="20sp" android:textStyle="bold" android:textColor="@color/text_primary"/>
+
+        <ImageButton android:id="@+id/btnHistoryClear"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:src="@drawable/ic_stop" android:tint="@color/accent_red"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Clear history"/>
+    </LinearLayout>
+
+    <View android:id="@+id/historyDivider"
+        android:layout_width="0dp" android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintTop_toBottomOf="@id/historyTopBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView android:id="@+id/tvHistoryEmpty"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="No history yet\nPlay some audio to see it here"
+        android:textColor="@color/text_secondary" android:textSize="15sp"
+        android:gravity="center" android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvHistory"
+        android:layout_width="0dp" android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/historyDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

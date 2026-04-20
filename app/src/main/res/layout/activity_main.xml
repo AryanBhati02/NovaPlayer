@@ -1,360 +1,496 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_dark"
-    tools:context=".MainActivity">
+    android:background="?android:attr/colorBackground">
 
-    <!-- ── TOP BAR ─────────────────────────────────────────────── -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="24dp"
-        android:paddingTop="48dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:text="MediaPlayer"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
-            android:fontFamily="sans-serif-condensed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground">
 
-        <TextView
-            android:text="Audio &amp; Video"
-            android:textSize="13sp"
-            android:textColor="@color/accent_cyan"
-            android:letterSpacing="0.12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp">
+
+
+            <LinearLayout android:id="@+id/topBar"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="18dp" android:paddingTop="48dp" android:paddingBottom="10dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:text="NOVA"
+                        android:textSize="28sp" android:textStyle="bold"
+                        android:textColor="@color/text_primary" android:letterSpacing="0.12"
+                        android:fontFamily="sans-serif-condensed"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                    <TextView android:text="MEDIA PLAYER"
+                        android:textSize="10sp" android:textColor="@color/accent_cyan"
+                        android:letterSpacing="0.20"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <TextView android:id="@+id/tvSleepTimer"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="⏱ 30:00" android:textSize="11sp"
+                    android:textColor="@color/accent_cyan" android:fontFamily="monospace"
+                    android:background="@drawable/chip_bg"
+                    android:paddingHorizontal="8dp" android:paddingVertical="4dp"
+                    android:layout_marginEnd="8dp" android:visibility="gone"/>
+
+                <TextView android:id="@+id/tvSpeedBadge"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="1.5×" android:textSize="11sp"
+                    android:textColor="@color/accent_purple"
+                    android:background="@drawable/chip_bg_purple"
+                    android:paddingHorizontal="8dp" android:paddingVertical="4dp"
+                    android:layout_marginEnd="8dp" android:visibility="gone"/>
+
+                <ImageButton android:id="@+id/btnMenu"
+                    android:layout_width="40dp" android:layout_height="40dp"
+                    android:src="@drawable/ic_menu" android:tint="@color/text_primary"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Menu"/>
+            </LinearLayout>
+
+            <View android:id="@+id/divider"
+                android:layout_width="0dp" android:layout_height="1dp"
+                android:background="@color/divider"
+                app:layout_constraintTop_toBottomOf="@id/topBar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardMedia"
+                android:layout_width="0dp" android:layout_height="280dp"
+                android:layout_marginHorizontal="14dp" android:layout_marginTop="12dp"
+                app:cardCornerRadius="22dp" app:cardBackgroundColor="?attr/colorSurface"
+                app:cardElevation="18dp"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+
+                <androidx.media3.ui.PlayerView android:id="@+id/playerView"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:visibility="gone" app:use_controller="false" app:resize_mode="fit"/>
+
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/youtubePlayerView"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:visibility="gone" app:enableAutomaticInitialization="false"/>
+
+
+                <LinearLayout android:id="@+id/layoutAudioViz"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="vertical" android:background="@color/bg_card">
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="44dp"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:paddingHorizontal="12dp">
+
+                        <ImageButton android:id="@+id/btnQueue"
+                            android:layout_width="36dp" android:layout_height="36dp"
+                            android:src="@drawable/ic_playlist" android:tint="@color/text_secondary"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Queue"/>
+
+                        <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
+
+
+                        <ImageButton android:id="@+id/btnShare"
+                            android:layout_width="36dp" android:layout_height="36dp"
+                            android:src="@drawable/ic_share" android:tint="@color/text_secondary"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Share"
+                            android:layout_marginEnd="4dp"/>
+
+
+                        <ImageButton android:id="@+id/btnBookmarkStar"
+                            android:layout_width="36dp" android:layout_height="36dp"
+                            android:src="@drawable/ic_star_outline" android:tint="@color/text_secondary"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Bookmark"/>
+                    </LinearLayout>
+
+
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
+                        android:layout_weight="1" android:gravity="center">
+
+                        <com.example.mediaplayer.ui.VisualizerView android:id="@+id/visualizerView"
+                            android:layout_width="match_parent" android:layout_height="140dp"
+                            android:layout_gravity="center" android:visibility="gone"
+                            android:paddingHorizontal="16dp"/>
+
+                        <LinearLayout android:id="@+id/layoutAudioBars"
+                            android:layout_width="wrap_content" android:layout_height="90dp"
+                            android:orientation="horizontal" android:gravity="center_vertical"
+                            android:layout_gravity="center">
+                            <View android:id="@+id/bar1"  style="@style/WaveBar" android:backgroundTint="@color/bar1"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar2"  style="@style/WaveBar" android:backgroundTint="@color/bar2"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar3"  style="@style/WaveBar" android:backgroundTint="@color/bar3"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar4"  style="@style/WaveBar" android:backgroundTint="@color/bar4"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar5"  style="@style/WaveBar" android:backgroundTint="@color/bar5"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar6"  style="@style/WaveBar" android:backgroundTint="@color/bar6"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar7"  style="@style/WaveBar" android:backgroundTint="@color/bar7"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar8"  style="@style/WaveBar" android:backgroundTint="@color/bar1"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar9"  style="@style/WaveBar" android:backgroundTint="@color/bar2"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar10" style="@style/WaveBar" android:backgroundTint="@color/bar3"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar11" style="@style/WaveBar" android:backgroundTint="@color/bar4"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar12" style="@style/WaveBar" android:backgroundTint="@color/bar5"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar13" style="@style/WaveBar" android:backgroundTint="@color/bar6"  android:layout_marginEnd="3dp"/>
+                            <View android:id="@+id/bar14" style="@style/WaveBar" android:backgroundTint="@color/bar7"/>
+                        </LinearLayout>
+                    </FrameLayout>
+
+
+                    <TextView android:id="@+id/tvMediaTitle"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="No media loaded" android:textColor="@color/text_primary"
+                        android:textSize="15sp" android:textStyle="bold" android:gravity="center"
+                        android:singleLine="true" android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:focusable="true" android:focusableInTouchMode="true"
+                        android:paddingHorizontal="16dp"/>
+
+
+                    <TextView android:id="@+id/tvLyrics"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="" android:textColor="@color/accent_cyan"
+                        android:textSize="12sp" android:gravity="center"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginTop="3dp" android:visibility="gone"
+                        android:maxLines="2" android:ellipsize="end"/>
+
+
+                    <TextView android:id="@+id/tvStatus"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Open a file or stream a URL"
+                        android:textColor="@color/text_secondary" android:textSize="11sp"
+                        android:gravity="center" android:paddingBottom="12dp"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout android:id="@+id/layoutVideoOverlay"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:gravity="end|bottom" android:padding="10dp"
+                    android:visibility="gone">
+                    <ImageButton android:id="@+id/btnFullscreen"
+                        android:layout_width="44dp" android:layout_height="44dp"
+                        android:src="@drawable/ic_fullscreen" android:tint="#FFFFFFFF"
+                        android:background="#66000000"
+                        android:contentDescription="Fullscreen"/>
+                </LinearLayout>
+
+
+                <ProgressBar android:id="@+id/progressLoading"
+                    android:layout_width="52dp" android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/accent_cyan" android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView android:id="@+id/cardControls"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp" android:layout_marginTop="10dp"
+                app:cardCornerRadius="22dp" app:cardBackgroundColor="?attr/colorSurface"
+                app:cardElevation="18dp"
+                app:layout_constraintTop_toBottomOf="@id/cardMedia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+                        <ImageView android:id="@+id/ivVolumeIcon"
+                            android:layout_width="18dp" android:layout_height="18dp"
+                            android:src="@drawable/ic_volume" android:tint="@color/text_secondary"/>
+                        <SeekBar android:id="@+id/seekVolume"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:progressTint="@color/accent_cyan" android:thumbTint="@color/accent_cyan"
+                            android:progressBackgroundTint="@color/divider"
+                            android:layout_marginHorizontal="10dp"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="VOL" android:textColor="@color/text_secondary"
+                            android:textSize="9sp" android:letterSpacing="0.1"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider" android:layout_marginBottom="10dp"/>
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+                        <TextView android:id="@+id/tvCurrentTime"
+                            android:layout_width="42dp" android:layout_height="wrap_content"
+                            android:text="0:00" android:textColor="@color/text_secondary"
+                            android:textSize="11sp" android:fontFamily="monospace" android:gravity="start"/>
+                        <SeekBar android:id="@+id/seekBar"
+                            android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:progressTint="@color/accent_cyan" android:thumbTint="@color/accent_cyan"
+                            android:progressBackgroundTint="@color/divider"
+                            android:layout_marginHorizontal="6dp"/>
+                        <TextView android:id="@+id/tvTotalTime"
+                            android:layout_width="42dp" android:layout_height="wrap_content"
+                            android:text="0:00" android:textColor="@color/text_secondary"
+                            android:textSize="11sp" android:fontFamily="monospace" android:gravity="end"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+                        android:orientation="horizontal" android:gravity="center_vertical"
+                        android:layout_marginTop="8dp" android:layout_marginBottom="12dp">
+
+
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnRestart"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1"
+                            android:text="" android:textSize="0sp"
+                            app:icon="@drawable/ic_restart" app:iconTint="@color/accent_cyan"
+                            app:iconSize="22dp" app:iconGravity="textStart" app:iconPadding="0dp"
+                            app:strokeColor="@color/accent_cyan" app:strokeWidth="1dp"
+                            app:cornerRadius="14dp" android:layout_marginEnd="5dp"
+                            android:insetTop="0dp" android:insetBottom="0dp"/>
+
+
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnPlayPause"
+                            style="@style/Widget.MaterialComponents.Button"
+                            android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="2"
+                            android:text="PLAY" android:textSize="14sp" android:textColor="@color/bg_dark"
+                            app:icon="@drawable/ic_play" app:iconTint="@color/bg_dark"
+                            app:iconSize="20dp" app:iconGravity="textStart" app:iconPadding="6dp"
+                            app:backgroundTint="@color/accent_cyan" app:cornerRadius="16dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:insetTop="0dp" android:insetBottom="0dp"/>
+
+
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnStop"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="52dp" android:layout_weight="1"
+                            android:text="" android:textSize="0sp"
+                            app:icon="@drawable/ic_stop" app:iconTint="@color/accent_red"
+                            app:iconSize="22dp" app:iconGravity="textStart" app:iconPadding="0dp"
+                            app:strokeColor="@color/accent_red" app:strokeWidth="1dp"
+                            app:cornerRadius="14dp" android:layout_marginStart="5dp"
+                            android:insetTop="0dp" android:insetBottom="0dp"/>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:background="@color/divider" android:layout_marginBottom="10dp"/>
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="8dp">
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnOpenFile"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
+                            android:text="Open File" android:textSize="12sp" android:textColor="@color/text_primary"
+                            app:icon="@drawable/ic_folder" app:iconTint="@color/text_primary" app:iconSize="16dp"
+                            app:strokeColor="@color/divider" app:strokeWidth="1dp" app:cornerRadius="12dp"
+                            android:layout_marginEnd="6dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnOpenUrl"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
+                            android:text="Open URL" android:textSize="12sp" android:textColor="@color/text_primary"
+                            app:icon="@drawable/ic_link" app:iconTint="@color/text_primary" app:iconSize="16dp"
+                            app:strokeColor="@color/divider" app:strokeWidth="1dp" app:cornerRadius="12dp"
+                            android:layout_marginStart="6dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="8dp">
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnSpeed"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="46dp" android:layout_weight="1"
+                            android:text="Speed" android:textSize="11sp" android:textColor="@color/accent_purple"
+                            app:icon="@drawable/ic_speed" app:iconTint="@color/accent_purple" app:iconSize="14dp"
+                            app:strokeColor="@color/accent_purple" app:strokeWidth="1dp" app:cornerRadius="10dp"
+                            android:layout_marginEnd="4dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnSleepTimer"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="46dp" android:layout_weight="1"
+                            android:text="Timer" android:textSize="11sp" android:textColor="@color/accent_amber"
+                            app:icon="@drawable/ic_timer" app:iconTint="@color/accent_amber" app:iconSize="14dp"
+                            app:strokeColor="@color/accent_amber" app:strokeWidth="1dp" app:cornerRadius="10dp"
+                            android:layout_marginHorizontal="4dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnRepeat"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="1"
+                            android:text="Repeat" android:textSize="10sp" android:textColor="@color/text_secondary"
+                            app:icon="@drawable/ic_repeat" app:iconTint="@color/text_secondary" app:iconSize="16dp"
+                            app:strokeColor="@color/divider" app:strokeWidth="1dp" app:cornerRadius="8dp"
+                            android:layout_marginStart="4dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnAbLoop"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="1"
+                            android:text="A→B Loop" android:textSize="10sp" android:textColor="@color/text_secondary"
+                            app:icon="@drawable/ic_abloop" app:iconTint="@color/text_secondary" app:iconSize="16dp"
+                            app:strokeColor="@color/divider" app:strokeWidth="1dp" app:cornerRadius="8dp"
+                            android:layout_marginEnd="6dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                        <com.google.android.material.button.MaterialButton android:id="@+id/btnLyrics"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp" android:layout_height="38dp" android:layout_weight="1"
+                            android:text="Lyrics" android:textSize="10sp" android:textColor="@color/text_secondary"
+                            app:icon="@drawable/ic_lyrics" app:iconTint="@color/text_secondary" app:iconSize="16dp"
+                            app:strokeColor="@color/divider" app:strokeWidth="1dp" app:cornerRadius="8dp"
+                            android:layout_marginStart="6dp" android:insetTop="0dp" android:insetBottom="0dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <LinearLayout android:id="@+id/navDrawer"
+        android:layout_width="290dp" android:layout_height="match_parent"
+        android:layout_gravity="end" android:orientation="vertical"
+        android:background="?attr/colorSurface" android:paddingTop="52dp"
+        android:elevation="8dp">
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:paddingBottom="14dp">
+            <TextView android:text="NOVA" android:textSize="20sp" android:textStyle="bold"
+                android:textColor="@color/text_primary" android:letterSpacing="0.1"
+                android:fontFamily="sans-serif-condensed" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"/>
+            <ImageButton android:id="@+id/btnCloseDrawer"
+                android:layout_width="36dp" android:layout_height="36dp"
+                android:src="@drawable/ic_close" android:tint="@color/text_secondary"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Close"/>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/divider" android:layout_marginBottom="4dp"/>
+
+
+        <LinearLayout android:id="@+id/drawerItemVisualizer"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_visualizer" android:tint="@color/accent_cyan"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Visualizer"
+                android:textColor="@color/text_primary" android:textSize="14sp"/>
+            <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchVisualizer"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:thumbTint="@color/accent_cyan" android:trackTint="#2200E5FF"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/drawerItemEq"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_eq" android:tint="@color/accent_green"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Equalizer" android:textColor="@color/text_primary" android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/drawerItemPlaylist"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_playlist" android:tint="@color/accent_cyan"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Playlists" android:textColor="@color/text_primary" android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/drawerItemBookmarks"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_bookmark" android:tint="@color/accent_amber"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Bookmarks" android:textColor="@color/text_primary" android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/drawerItemHistory"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_history" android:tint="@color/text_secondary"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="History" android:textColor="@color/text_primary" android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/drawerItemStats"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_stats" android:tint="@color/text_secondary"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Stats" android:textColor="@color/text_primary" android:textSize="14sp"/>
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/divider" android:layout_marginVertical="6dp"/>
+
+
+        <LinearLayout android:id="@+id/drawerItemTheme"
+            android:layout_width="match_parent" android:layout_height="54dp"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingHorizontal="18dp" android:background="?attr/selectableItemBackground">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_theme" android:tint="@color/text_secondary"
+                android:layout_marginEnd="14dp"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Dark Mode"
+                android:textColor="@color/text_primary" android:textSize="14sp"/>
+            <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchTheme"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:thumbTint="@color/accent_cyan" android:trackTint="#2200E5FF"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <!-- ── DIVIDER ────────────────────────────────────────────── -->
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/divider"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- ── MEDIA DISPLAY CARD ─────────────────────────────────── -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardMedia"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="@color/bg_card"
-        app:cardElevation="12dp"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cardControls"
-        app:layout_constraintVertical_bias="0.0">
-
-        <!-- Media3 PlayerView (visible when streaming direct links) -->
-        <androidx.media3.ui.PlayerView
-            android:id="@+id/playerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:use_controller="false"
-            app:resize_mode="fit" />
-
-        <!-- YouTube PlayerView (visible when streaming YouTube links) -->
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtubePlayerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:enableAutomaticInitialization="false" />
-
-        <!-- Audio visualization (visible when playing audio) -->
-        <LinearLayout
-            android:id="@+id/layoutAudioViz"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@color/bg_card"
-            android:padding="24dp">
-
-            <!-- Waveform bars -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="24dp">
-
-                <View android:id="@+id/bar1"
-                    style="@style/WaveBar"
-                    android:layout_marginEnd="5dp" />
-                <View android:id="@+id/bar2"
-                    style="@style/WaveBar"
-                    android:layout_marginEnd="5dp" />
-                <View android:id="@+id/bar3"
-                    style="@style/WaveBar"
-                    android:layout_marginEnd="5dp" />
-                <View android:id="@+id/bar4"
-                    style="@style/WaveBar"
-                    android:layout_marginEnd="5dp" />
-                <View android:id="@+id/bar5"
-                    style="@style/WaveBar"
-                    android:layout_marginEnd="5dp" />
-                <View android:id="@+id/bar6"
-                    style="@style/WaveBar"
-                    android:layout_marginEnd="5dp" />
-                <View android:id="@+id/bar7"
-                    style="@style/WaveBar" />
-
-            </LinearLayout>
-
-            <!-- Media title -->
-            <TextView
-                android:id="@+id/tvMediaTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No media loaded"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:maxLines="2"
-                android:ellipsize="end" />
-
-            <!-- Status text -->
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Open a file or enter a URL to begin"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp"
-                android:gravity="center"
-                android:layout_marginTop="6dp" />
-
-        </LinearLayout>
-
-        <!-- Loading spinner overlay -->
-        <ProgressBar
-            android:id="@+id/progressLoading"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/accent_cyan"
-            android:visibility="gone" />
-
-    </androidx.cardview.widget.CardView>
-
-    <!-- ── CONTROLS CARD ──────────────────────────────────────── -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardControls"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="24dp"
-        app:cardBackgroundColor="@color/bg_card"
-        app:cardElevation="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <!-- SeekBar row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
-
-                <TextView
-                    android:id="@+id/tvCurrentTime"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:text="0:00"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
-                    android:gravity="start" />
-
-                <SeekBar
-                    android:id="@+id/seekBar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:progressTint="@color/accent_cyan"
-                    android:thumbTint="@color/accent_cyan"
-                    android:progressBackgroundTint="@color/divider"
-                    android:layout_marginHorizontal="8dp" />
-
-                <TextView
-                    android:id="@+id/tvTotalTime"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:text="0:00"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
-                    android:gravity="end" />
-
-            </LinearLayout>
-
-            <!-- Playback controls: Play/Pause, Stop, Restart -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="12dp">
-
-                <!-- Restart -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnRestart"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="1"
-                    android:text="RESTART"
-                    android:textSize="10sp"
-                    android:textColor="@color/accent_cyan"
-                    app:icon="@drawable/ic_restart"
-                    app:iconTint="@color/accent_cyan"
-                    app:iconSize="14dp"
-                    app:iconPadding="4dp"
-                    app:iconGravity="textStart"
-                    app:strokeColor="@color/accent_cyan"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"
-                    android:layout_marginEnd="4dp"
-                    android:padding="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:insetLeft="0dp"
-                    android:insetRight="0dp" />
-
-                <!-- Play / Pause -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPlayPause"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="1.4"
-                    android:text="PLAY"
-                    android:textSize="13sp"
-                    android:textColor="@color/bg_dark"
-                    app:icon="@drawable/ic_play"
-                    app:iconTint="@color/bg_dark"
-                    app:iconSize="20dp"
-                    app:iconPadding="6dp"
-                    app:iconGravity="textStart"
-                    app:backgroundTint="@color/accent_cyan"
-                    app:cornerRadius="16dp"
-                    android:layout_marginHorizontal="4dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp" />
-
-                <!-- Stop -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnStop"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="1"
-                    android:text="STOP"
-                    android:textSize="10sp"
-                    android:textColor="@color/accent_red"
-                    app:icon="@drawable/ic_stop"
-                    app:iconTint="@color/accent_red"
-                    app:iconSize="14dp"
-                    app:iconPadding="4dp"
-                    app:iconGravity="textStart"
-                    app:strokeColor="@color/accent_red"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"
-                    android:layout_marginStart="4dp"
-                    android:padding="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:insetLeft="0dp"
-                    android:insetRight="0dp" />
-
-            </LinearLayout>
-
-            <!-- ── SOURCE BUTTONS ─────────────────────────────── -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider"
-                android:layout_marginBottom="12dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- Open File -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnOpenFile"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Open File"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_primary"
-                    app:icon="@drawable/ic_folder"
-                    app:iconTint="@color/text_primary"
-                    app:iconSize="18dp"
-                    app:iconPadding="4dp"
-                    app:strokeColor="@color/divider"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"
-                    android:layout_marginEnd="8dp" />
-
-                <!-- Open URL -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnOpenUrl"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Open URL"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_primary"
-                    app:icon="@drawable/ic_link"
-                    app:iconTint="@color/text_primary"
-                    app:iconSize="18dp"
-                    app:iconPadding="4dp"
-                    app:strokeColor="@color/divider"
-                    app:strokeWidth="1dp"
-                    app:cornerRadius="12dp"
-                    android:layout_marginStart="8dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

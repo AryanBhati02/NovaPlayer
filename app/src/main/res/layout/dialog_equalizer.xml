@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+            <TextView android:text="Equalizer" android:textColor="#F2F2FF"
+                android:textSize="14sp" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"/>
+            <Switch android:id="@+id/swEqEnabled"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:checked="true" android:thumbTint="#00E5FF" android:trackTint="#1A00E5FF"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/llEqBands"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#1E1E32" android:layout_marginVertical="12dp"/>
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+            <TextView android:text="Bass Boost" android:textColor="#F2F2FF"
+                android:textSize="14sp" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1"/>
+            <Switch android:id="@+id/swBassBoost"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:thumbTint="#00E5FF" android:trackTint="#1A00E5FF"/>
+        </LinearLayout>
+
+        <SeekBar android:id="@+id/seekBass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="1000" android:progress="0"
+            android:progressTint="#00E5FF"
+            android:thumbTint="#00E5FF"
+            android:progressBackgroundTint="#1E1E32"
+            android:layout_marginBottom="4dp"/>
+
+    </LinearLayout>
+</ScrollView>
