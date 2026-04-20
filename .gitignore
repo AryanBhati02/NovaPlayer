@@ -18,3 +18,4 @@ app/build/
 # APK / Bundle
 *.apk
 *.aab
+*.log
