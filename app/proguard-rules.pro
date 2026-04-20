@@ -1,2 +1,3 @@
-# Add project specific ProGuard rules here.
--keep class com.example.mediaplayer.** { *; }
+-keepattributes *Annotation*
+-keepclassmembers class * extends androidx.room.RoomDatabase { abstract *; }
+-keep class com.example.mediaplayer.db.** { *; }
